@@ -28,6 +28,7 @@ jobs:
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
             cd $APP_DIR
+            cd NHL-portfolio-frontend
             # Собираем образ из корня репозитория, где лежит Dockerfile
             docker build -t nhl-frontend -f Dockerfile .
             
