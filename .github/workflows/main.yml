@@ -28,7 +28,13 @@ jobs:
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
             cd $APP_DIR
-            cd NHL-portfolio-frontend
-            docker build -t nhl-frontend .
-            docker run -d -p 80:80 nhl-frontend
+            # Собираем образ из корня репозитория, где лежит Dockerfile
+            docker build -t nhl-frontend -f Dockerfile .
+            
+            # Останавливаем старый контейнер, если есть
+            docker rm -f nhl-frontend || true
+      
+            # Запускаем новый
+            docker run -d -p 80:80 --name nhl-frontend nhl-frontend
           EOF
+
