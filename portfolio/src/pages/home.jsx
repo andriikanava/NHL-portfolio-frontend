@@ -1,11 +1,15 @@
 import Navbar from "../components/navbar/navbar";
+import Banner from "../components/welcome-banner/banner";
+import ProjectContainer from "../components/project-list/projects-list";
 
 export default function Home() {
     return (
       <>
       <Navbar />
       <main>
-        <h1>Home page</h1>
+        <Banner />
+        
+        <ProjectContainer />
       </main>
       </>
     )

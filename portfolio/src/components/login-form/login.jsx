@@ -34,28 +34,27 @@ function LoginForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{ display: "flex", flexDirection: "column", gap: "10px", width: "300px" }}
-    >
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit">Login</button>
-      <a href="/register" class="register-btn">Register</a>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-    </form>
+    <form onSubmit={handleSubmit} className="login-form">
+    <input
+      type="email"
+      placeholder="Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      required
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      required
+    />
+    <button type="submit">Login</button>
+
+    <a href="/register" className="register-btn">Register</a>
+
+    {error && <div className="login-error">{error}</div>}
+  </form>
   );
 }
 
