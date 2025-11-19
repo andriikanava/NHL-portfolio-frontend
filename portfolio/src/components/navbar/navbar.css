@@ -1,0 +1,46 @@
+/* navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* табы слева, user справа */
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    background-color: #ffffff; /* светлый фон */
+    border-bottom: 1px solid #e0e0e0; /* тонкая линия снизу */
+    font-family: Arial, sans-serif;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    margin-right: 20px; /* расстояние между табами */
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: #333333; /* темный текст для контраста */
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .nav-links li a:hover {
+    color: #007bff; /* цвет при наведении */
+  }
+  
+  .user {
+    margin-left: auto; /* "пушит" user вправо */
+    text-decoration: none;
+    color: #333333;
+    font-weight: 500;
+  }
+  
+  .user:hover {
+    color: #007bff;
+  }
+  
