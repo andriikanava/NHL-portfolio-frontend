@@ -73,4 +73,7 @@
 
 .project-content {
     padding-inline: 1.5vw;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 3vh;
+    padding-block: 3vh;
 }

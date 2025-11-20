@@ -10,7 +10,7 @@ function Navbar() {
             <li><a href="/">Home</a></li>
             <li><a href="/projects">Projects</a></li>
         </ul>
-        <a className="user" href="/login">{user ? user.username : "Login"}</a>
+        <a className="user" href={user ? "/profile" : "/login"}>{user ? user.username : "Login"}</a>
         </nav>
     )
 }

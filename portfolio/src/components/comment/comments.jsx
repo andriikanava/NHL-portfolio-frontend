@@ -33,7 +33,6 @@ function CommentsSection() {
     }
     return (
         <div class="comment-content">
-            <h1>Comments ✉️</h1>
             {comment_box}
         </div>
     );

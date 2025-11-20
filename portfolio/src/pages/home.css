@@ -1,0 +1,11 @@
+.comment-section {
+    display: flex;
+    flex-direction: row;
+    padding-inline: 1.5vw;
+    gap: 2vw;
+}
+
+.comments-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding-inline: 1.5vw;
+}
