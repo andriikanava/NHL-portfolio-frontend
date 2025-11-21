@@ -22,7 +22,7 @@ function CommentsSection() {
     for (let i = 0; i < comments.length; i++) {
         const comment = comments[i];
         comment_box.push(
-            <div class="comment-box">
+            <div className="comment-box">
                 <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                     <h3>{comment.name}</h3>
                     <h5 className="dates">{comment.role}</h5>
@@ -32,7 +32,7 @@ function CommentsSection() {
         )
     }
     return (
-        <div class="comment-content">
+        <div className="comment-content">
             {comment_box}
         </div>
     );

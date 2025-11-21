@@ -40,7 +40,7 @@ function ProjectContainer() {
   });
 
   return (
-    <div class="project-content">
+    <div className="project-content">
          {/* ---------- FILTER UI ---------- */}
         <div className="filters" style={{ marginBottom: "20px" }}>
             <select onChange={(e) => setPeriodFilter(e.target.value)}>

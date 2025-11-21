@@ -14,8 +14,8 @@ export default function Home() {
         <Banner />
         
         <ProjectContainer />
-        <h1 class="comments-title">Comments ✉️</h1>
-        <div class="comment-section">
+        <h1 className="comments-title">Comments ✉️</h1>
+        <div className="comment-section">
           <CommentsSection />
           <CommentForm />
         </div>

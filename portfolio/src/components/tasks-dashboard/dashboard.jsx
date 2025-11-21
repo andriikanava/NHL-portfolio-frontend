@@ -1,9 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import api from "../../api/axios";
 import "./dashboard.css"; // сюда помести твой CSS
+import { AuthContext } from "../../context/AuthContext";
 
 function ProjectContainer() {
   const [projects, setProjects] = useState([]);
+  const { user, loading } = useContext(AuthContext);
+  const [add_btn, set_add_btn] = useState("");
+
+  useEffect(() => {
+    if (user && !loading) {
+      set_add_btn(
+        <div className="projects-header">
+            <a href="/add-project" className="add-project-btn">+ Add Project</a>
+        </div>
+      );
+    }
+    else if (!loading && !user) {
+      set_add_btn("");
+    }
+  }, [user, loading]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -53,7 +69,7 @@ function ProjectContainer() {
                   <ul>
                     {tasks.map((task) => (
                       <li key={task.id}>
-                        <div class="project-item">
+                        <div className="project-item">
                           <h4>{task.title}</h4>
                           <h5>{task.description}</h5>
                           <a href={task.url}>Link</a>
@@ -72,10 +88,13 @@ function ProjectContainer() {
 
   return (
     <>
-      <div className="assignment-container">
-        {renderCard("Weekly Assignments", "Weekly")}
-        {renderCard("Portfolio Assignments", "Portfolio")}
-        {renderCard("Extra Assignments", "Extra")}
+    <div className="assignment-content">
+        {add_btn}
+        <div className="assignment-container">
+          {renderCard("Weekly Assignments", "Weekly")}
+          {renderCard("Portfolio Assignments", "Portfolio")}
+          {renderCard("Extra Assignments", "Extra")}
+        </div>
       </div>
     </>
   );
