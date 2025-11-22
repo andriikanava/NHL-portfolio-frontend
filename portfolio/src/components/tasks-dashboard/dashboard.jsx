@@ -7,6 +7,8 @@ function ProjectContainer() {
   const [projects, setProjects] = useState([]);
   const { user, loading } = useContext(AuthContext);
   const [add_btn, set_add_btn] = useState("");
+  const [projectsLoading, setProjectsLoading] = useState(true);
+
 
   useEffect(() => {
     if (user && !loading) {
@@ -28,10 +30,13 @@ function ProjectContainer() {
         setProjects(response.data);
       } catch (err) {
         console.log(err.message);
+      } finally {
+        setProjectsLoading(false);
       }
     };
     fetchProjects();
   }, []);
+  
 
   // Группировка: category → period → week → tasks
   const grouped = projects.reduce((acc, project) => {
@@ -46,6 +51,21 @@ function ProjectContainer() {
     acc[category][period][week].push(project);
     return acc;
   }, {});
+  
+  const SkeletonCard = ({ title }) => (
+    <div className="card skeleton-card">
+      <h2 className="skeleton-title">{title}</h2>
+  
+      <div className="skeleton-block period"></div>
+      <div className="skeleton-block week"></div>
+      <div className="skeleton-block task long"></div>
+      <div className="skeleton-block task"></div>
+  
+      <div className="skeleton-block period"></div>
+      <div className="skeleton-block week"></div>
+      <div className="skeleton-block task long"></div>
+    </div>
+  );
 
   // функция для отображения карточки
   const renderCard = (title, categoryKey) => {
@@ -88,14 +108,29 @@ function ProjectContainer() {
 
   return (
     <>
+    
     <div className="assignment-content">
-        {add_btn}
-        <div className="assignment-container">
-          {renderCard("Weekly Assignments", "Weekly")}
-          {renderCard("Portfolio Assignments", "Portfolio")}
-          {renderCard("Extra Assignments", "Extra")}
-        </div>
+    {add_btn}
+    {projectsLoading ? (
+      <>
+      <div className="assignment-container">
+        <SkeletonCard title="Weekly Assignments" />
+        <SkeletonCard title="Portfolio Assignments" />
+        <SkeletonCard title="Extra Assignments" />
       </div>
+      </>
+    ) : (
+      <>
+      <div className="assignment-container">
+        {renderCard("Weekly Assignments", "Weekly")}
+        {renderCard("Portfolio Assignments", "Portfolio")}
+        {renderCard("Extra Assignments", "Extra")}
+      </div>
+      </>
+    )}
+
+    </div>
+
     </>
   );
 }

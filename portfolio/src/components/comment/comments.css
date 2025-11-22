@@ -28,3 +28,48 @@
 
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
+
+
+
+@keyframes skeletonPulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.skeleton {
+    padding: 15px;
+    border-radius: 12px;
+    background: #f0f0f0;
+    margin-bottom: 15px;
+    animation: skeletonPulse 1.4s infinite ease-in-out;
+}
+
+/* Имя */
+.skeleton-line.name {
+    width: 120px;
+    height: 16px;
+    background: #d7d7d7;
+    border-radius: 6px;
+}
+
+/* Роль */
+.skeleton-line.role {
+    width: 70px;
+    height: 12px;
+    background: #d7d7d7;
+    border-radius: 6px;
+}
+
+/* Текст комментария */
+.skeleton-line.text {
+    width: 60%;
+    height: 12px;
+    background: #d7d7d7;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.skeleton-line.text.long {
+    width: 90%;
+}

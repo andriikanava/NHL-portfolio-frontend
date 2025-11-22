@@ -6,6 +6,7 @@ function ProjectContainer() {
   const [projects, setProjects] = useState([]); // must be array
   const [periodFilter, setPeriodFilter] = useState("all");
   const [sortBy, setSortBy] = useState("name");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -14,10 +15,13 @@ function ProjectContainer() {
         setProjects(response.data);
       } catch (err) {
         console.log(err.message);
+      } finally {
+        setLoading(false); 
       }
     };
     fetchProjects();
   }, []);
+  
 
   // ------- FILTER -------
   const filtered = projects.filter((p) => {
@@ -39,41 +43,46 @@ function ProjectContainer() {
     }
   });
 
+  
+
   return (
     <div className="project-content">
-         {/* ---------- FILTER UI ---------- */}
-        <div className="filters" style={{ marginBottom: "20px" }}>
-            <select onChange={(e) => setPeriodFilter(e.target.value)}>
-            <option value="all">All periods</option>
-            <option value="1">Period 1</option>
-            <option value="2">Period 2</option>
-            <option value="3">Period 3</option>
-            <option value="4">Period 4</option>
-            </select>
+         {loading ? (
+            Array.from({ length: 3 }).map((_, index) => (
+                <div className="proj-box skeleton" key={index}>
+                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                        <div className="skeleton-line title"></div>
+                        <div className="skeleton-line dates"></div>
+                    </div>
 
-            <select onChange={(e) => setSortBy(e.target.value)}>
-            <option value="name">Sort: Name</option>
-            <option value="id">Sort: ID</option>
-            <option value="week">Sort: Week</option>
-            </select>
-        </div>
-        <div className="porject-container">
-        {/* ---------- PROJECT LIST ---------- */}
-        {sorted.map((project) => (
-            <div className="proj-box" key={project.id}>
-            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <h3>{project.title}</h3>
-                <h5 className="dates">P: {project.period}; W: {project.week}</h5>
-            </div>
+                    <div className="skeleton-line id"></div>
 
-            <h5>id: {project.id}</h5>
-            <h5>{project.description}</h5>
+                    <div className="skeleton-line desc long"></div>
+                    <div className="skeleton-line desc"></div>
 
-            <a href={project.url}>Link</a>
-            <a href={project.source_url}>Source</a>
-            </div>
-        ))}
-        </div>
+                    <div className="skeleton-line link"></div>
+                    <div className="skeleton-line link"></div>
+                </div>
+            ))
+        ) : (
+            projects.map((project) => (
+                <div className="proj-box" key={project.id}>
+                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                        <h3>{project.title}</h3>
+                        <h5 className="dates">
+                            P: {project.period}; W: {project.week}
+                        </h5>
+                    </div>
+
+                    <h5>id: {project.id}</h5>
+                    <h5>{project.description}</h5>
+
+                    <a href={project.url}>Link</a>
+                    <a href={project.source_url}>Source</a>
+                </div>
+            ))
+        )}
+
     </div>
   );
 }
