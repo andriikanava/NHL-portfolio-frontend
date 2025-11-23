@@ -21,7 +21,8 @@ function ProjectForm() {
     
         try {
           // 1️⃣ Регистрация
-          await api.post("/portfolio/projects/", { title, description, url, source_url, week, period});
+          console.log(week);
+          await api.post("/portfolio/projects/", { title, description, url, source_url, week: Number(week), period: Number(period)});
     
           // 3️⃣ Редирект на главную
           navigate("/projects");
@@ -50,7 +51,6 @@ function ProjectForm() {
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required
         />
         <input
           type="url"
@@ -67,14 +67,16 @@ function ProjectForm() {
           required
         />
 
-        <select value={period} onChange={(e) => setWeek(e.target.value)}>
+        <select value={period} onChange={(e) => setPeriod(e.target.value)}>
+            <option value="">Select period</option>
             <option value="1">Period 1</option>
             <option value="2">Period 2</option>
             <option value="3">Period 3</option>
             <option value="4">Period 4</option>
         </select>
 
-        <select value={week} onChange={(e) => setPeriod(e.target.value)}>
+        <select value={week} onChange={(e) => setWeek(e.target.value)}>
+            <option value="">Select week</option>
             <option value="1">Week 1</option>
             <option value="2">Week 2</option>
             <option value="3">Week 3</option>
