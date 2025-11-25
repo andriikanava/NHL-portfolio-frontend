@@ -6,6 +6,8 @@ import Projects from "./pages/project";
 import Login from "./pages/login";
 import ProfilePage from "./pages/profile";
 import ProjectFormPage from "./pages/project-form";
+import MediaPage from "./pages/media";
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/add-project" element={<ProjectFormPage />} />
+          <Route path="/media" element={<MediaPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

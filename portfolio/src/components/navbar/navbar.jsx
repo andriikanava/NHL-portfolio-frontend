@@ -9,6 +9,7 @@ function Navbar() {
         <ul className="nav-links">
             <li><a href="/">Home</a></li>
             <li><a href="/projects">Projects</a></li>
+            <li><a href="/media">Media</a></li>
         </ul>
         <a className="user" href={user ? "/profile" : "/login"}>{user ? user.username : "Login"}</a>
         </nav>
