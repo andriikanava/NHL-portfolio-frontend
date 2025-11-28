@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  frontend:
+    build: .
+    container_name: frontend
+    environment:
+      - VIRTUAL_HOST=knv.co.ua
+      - LETSENCRYPT_HOST=knv.co.ua
+      - LETSENCRYPT_EMAIL=kanava.andrey23@gmail.com
+    networks:
+      - proxy
+    expose:
+      - "80"
+
+networks:
+  proxy:
+    external: true
