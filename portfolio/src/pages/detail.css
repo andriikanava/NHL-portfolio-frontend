@@ -1,9 +1,8 @@
 .comment-section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     padding-inline: 1.5vw;
-    gap: 2vw;
 }
 
 .comments-title {

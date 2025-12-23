@@ -1,75 +1,74 @@
-import { useEffect, useState, useContext } from "react";
+import React, { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import "./comment-form.css";
 import api from "../../api/axios";
+import "./comment-form.css";
 
-function CommentForm() {
-    const { user } = useContext(AuthContext);
-    const [name, setName] = useState(user ? user.username : "");
-    const [email, setEmail] = useState("");
-    const [comment, setComment] = useState("");
-    const [role, setRole] = useState("");
-    const [notify, setNotify] = useState(false);
-    const [error, setError] = useState("");
+function CommentForm({ onCreated }) {
+  const { id } = useParams(); // project id из /projects/:id
+  const { user, loading } = useContext(AuthContext);
 
-    const hadleSubmit = async (e) => {
-        e.preventDefault();
-        setError("");
+  const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
+  const [sending, setSending] = useState(false);
 
-        try {
-            const response = await api.post("/portfolio/comments/", { name, email, comment, role, notify });
-        }
-        catch (err) {
-            console.error(err.response?.data || err.message);
-            if (err.response?.data) {
-                setError(err.response.data);
-            }
-        }
-    };
+  // Комменты по требованиям — только staff
+  if (loading) return null;
+  if (!user?.is_staff) return null;
 
-    return (
-        <form className="comment-form" onSubmit={hadleSubmit}>
-            <input
-                type="text"
-                placeholder="Your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
+    if (!comment.trim()) {
+      setError("Comment cannot be empty");
+      return;
+    }
 
-            <select value={role} onChange={(e) => setRole(e.target.value)}>
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-            </select>
+    try {
+      setSending(true);
 
-            <textarea
-                placeholder="Write your comment..."
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-            />
-             {error.comment && <div className="field-error">{error.comment[0]}</div>}
-            <label className="notify-box">
-                <input
-                    type="checkbox"
-                    checked={notify}
-                    onChange={() => setNotify(!notify)}
-                />
-                Notify others
-            </label>
-            {error.notify && <div className="field-error">{error.notify[0]}</div>}
+      await api.post("/portfolio/comments/", {
+        project: Number(id),
+        comment: comment.trim(),
+        user: user.id,
+        status: "OPEN",
+      });
 
-            <button type="submit">Send</button>
+      setComment("");
+      if (typeof onCreated === "function") onCreated();
+    } catch (err) {
+      console.error(err.response?.data || err.message);
 
-        </form>
+      const data = err.response?.data;
+      if (data && typeof data === "object") {
+        const key = Object.keys(data)[0];
+        const msg = Array.isArray(data[key]) ? data[key][0] : String(data[key]);
+        setError(msg);
+      } else {
+        setError("Failed to send comment");
+      }
+    } finally {
+      setSending(false);
+    }
+  };
 
-    )
+  return (
+    <form className="comment-form" onSubmit={handleSubmit}>
+      <textarea
+        placeholder="Write comment..."
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        required
+      />
+
+      {error ? <div className="field-error">{error}</div> : null}
+
+      <button type="submit" disabled={sending}>
+        {sending ? "Sending..." : "Send"}
+      </button>
+    </form>
+  );
 }
 
 export default CommentForm;

@@ -8,6 +8,7 @@ import ProfilePage from "./pages/profile";
 import ProjectFormPage from "./pages/project-form";
 import MediaPage from "./pages/media";
 import UploadFormPage from "./pages/upload";
+import ProjectPage from "./pages/project-detail";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/add-project" element={<ProjectFormPage />} />
           <Route path="/media" element={<MediaPage />} />
           <Route path="/upload" element={<UploadFormPage />} />
+          <Route path="/projects/:id" element={<ProjectPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

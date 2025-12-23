@@ -70,15 +70,14 @@ function ProjectContainer() {
                     <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                         <h3>{project.title}</h3>
                         <h5 className="dates">
-                            P: {project.period}; W: {project.week}
+                            Y: {project.year}; M: {project.module}
                         </h5>
                     </div>
 
                     <h5>id: {project.id}</h5>
                     <h5>{project.description}</h5>
 
-                    <a href={project.url}>Link</a>
-                    <a href={project.source_url}>Source</a>
+                    <a href={`/projects/${project.id}`}>Open</a>
                 </div>
             ))
         )}
