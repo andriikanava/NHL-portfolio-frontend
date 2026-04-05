@@ -75,7 +75,6 @@ function ProjectContainer() {
                     </div>
 
                     <h5>id: {project.id}</h5>
-                    <h5>{project.description}</h5>
 
                     <a href={`/projects/${project.id}`}>Open</a>
                 </div>
